@@ -14,11 +14,16 @@ import {
   ScrollView,
   View
 } from 'react-native';
+import Button from 'react-native-button';
 
 class vent extends Component {
   constructor (props) {
     super(props);
     this.state = {text: ''};
+  }
+
+  _handlePress () {
+    return undefined;
   }
 
   render () {
@@ -37,6 +42,12 @@ class vent extends Component {
           Preview
         </Text>
         <Text style={styles.instructions}>{this.state.text}</Text>
+        <Button
+          style={styles.button}
+          styleDisabled={styles.disabled}
+          onPress={() => this._handlePress()}>
+          Submit
+        </Button>
         <Text style={styles.instructions}>
           Press Cmd+R to reload,{'\n'}
           Cmd+D or shake for dev menu
@@ -50,6 +61,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5FCFF',
+    alignItems: 'center'
   },
   welcome: {
     fontSize: 40,
@@ -59,14 +71,30 @@ const styles = StyleSheet.create({
   },
   instructions: {
     textAlign: 'center',
-    color: '#333333',
+    color: 'gray',
     marginBottom: 5,
   },
   textBox: {
     borderColor: 'gray',
     borderWidth: 1,
     height: 100,
-    margin: 10
+    margin: 10,
+    backgroundColor: 'white',
+    padding: 6,
+    borderRadius: 4
+  },
+  button: {
+    fontSize: 20,
+    color: 'cyan',
+    backgroundColor: 'white',
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 4,
+    padding: 6,
+    width: 128
+  },
+  disabled: {
+    color: 'red'
   }
 });
 
