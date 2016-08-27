@@ -19,11 +19,43 @@ import Button from 'react-native-button';
 class vent extends Component {
   constructor (props) {
     super(props);
-    this.state = {text: ''};
+    this.getVentsFromApi();
+    this.state = {text: '', vents: []};
+  }
+
+  async getVentsFromApi () {
+    try {
+      let response = await fetch('http://localhost:3000/vents');
+      let responseJson = await response.json();
+      this.setState({vents: await responseJson});
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async postVentToApi () {
+    try {
+      let response = await fetch('http://localhost:3000/vents', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          text: this.state.text
+        })
+      });
+      let responseJson = await response.json();
+      this.setState({vents: await responseJson});
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   _handlePress () {
-    return undefined;
+    if (this.state.text.length) {
+      this.postVentToApi();
+    }
   }
 
   render () {
@@ -48,6 +80,9 @@ class vent extends Component {
           onPress={() => this._handlePress()}>
           Submit
         </Button>
+        <Text style={styles.instructions}>
+          {JSON.stringify(this.state.vents)}
+        </Text>
         <Text style={styles.instructions}>
           Press Cmd+R to reload,{'\n'}
           Cmd+D or shake for dev menu
