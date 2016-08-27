@@ -10,20 +10,33 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
+  TextInput,
+  ScrollView,
   View
 } from 'react-native';
 
 class vent extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {text: ''};
+  }
+
   render () {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
-          Test
+          Vent
         </Text>
+        <TextInput
+          style={styles.textBox}
+          multiline={true}
+          placeholder='Vent here'
+          onChangeText={(text) => this.setState({text})}
+        />
         <Text style={styles.instructions}>
-          To get started, edit index.ios.js
+          Preview
         </Text>
+        <Text style={styles.instructions}>{this.state.text}</Text>
         <Text style={styles.instructions}>
           Press Cmd+R to reload,{'\n'}
           Cmd+D or shake for dev menu
@@ -36,20 +49,25 @@ class vent extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   welcome: {
-    fontSize: 20,
+    fontSize: 40,
     textAlign: 'center',
-    margin: 10,
+    marginTop: 30,
+    marginBottom: 10
   },
   instructions: {
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
   },
+  textBox: {
+    borderColor: 'gray',
+    borderWidth: 1,
+    height: 100,
+    margin: 10
+  }
 });
 
 AppRegistry.registerComponent('vent', () => vent);
