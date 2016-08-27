@@ -33,7 +33,7 @@ class vent extends Component {
     }
   }
 
-  async postVentToApi () {
+  async postVentToApi (text) {
     try {
       let response = await fetch('http://localhost:3000/vents', {
         method: 'POST',
@@ -42,7 +42,7 @@ class vent extends Component {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          text: this.state.text
+          text: text
         })
       });
       let responseJson = await response.json();
@@ -54,7 +54,8 @@ class vent extends Component {
 
   _handlePress () {
     if (this.state.text.length) {
-      this.postVentToApi();
+      this.postVentToApi(this.state.text);
+      this.setState({text: ''});
     }
   }
 
@@ -69,6 +70,7 @@ class vent extends Component {
           multiline={true}
           placeholder='Vent here'
           onChangeText={(text) => this.setState({text})}
+          value={this.state.text}
         />
         <Text style={styles.instructions}>
           Preview
