@@ -11,7 +11,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  ScrollView,
+  ListView,
   View
 } from 'react-native';
 import Button from 'react-native-button';
@@ -25,7 +25,7 @@ class vent extends Component {
 
   async getVentsFromApi () {
     try {
-      let response = await fetch('http://localhost:3000/vents');
+      let response = await fetch('https://vent-api.herokuapp.com/vents');
       let responseJson = await response.json();
       this.setState({vents: await responseJson});
     } catch (error) {
@@ -35,7 +35,7 @@ class vent extends Component {
 
   async postVentToApi (text) {
     try {
-      let response = await fetch('http://localhost:3000/vents', {
+      let response = await fetch('https://vent-api.herokuapp.com/vents', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -71,7 +71,7 @@ class vent extends Component {
           placeholder='Vent here'
           onChangeText={(text) => this.setState({text})}
           value={this.state.text}
-        />
+          />
         <Text style={styles.instructions}>
           Preview
         </Text>
@@ -82,9 +82,7 @@ class vent extends Component {
           onPress={() => this._handlePress()}>
           Submit
         </Button>
-        <Text style={styles.instructions}>
-          {JSON.stringify(this.state.vents)}
-        </Text>
+        <Text style={styles.instructions}>{JSON.stringify(this.state.vents)}</Text>
         <Text style={styles.instructions}>
           Press Cmd+R to reload,{'\n'}
           Cmd+D or shake for dev menu
