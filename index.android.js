@@ -1,19 +1,13 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
   Text,
   TextInput,
-  ListView,
   View
 } from 'react-native';
 import Button from 'react-native-button';
+import Vents from './components/vents.js';
 
 class vent extends Component {
   constructor (props) {
@@ -24,13 +18,7 @@ class vent extends Component {
 
   async getVentsFromApi () {
     try {
-      let response = await fetch('https://vent-api.herokuapp.com/vents', {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      });
+      let response = await fetch('https://vent-api.herokuapp.com/vents');
       let responseJson = await response.json();
       this.setState({vents: await responseJson});
     } catch (error) {
@@ -64,7 +52,7 @@ class vent extends Component {
     }
   }
 
-  render() {
+  render () {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
@@ -87,10 +75,11 @@ class vent extends Component {
           onPress={() => this._handlePress()}>
           Submit
         </Button>
-        <Text style={styles.instructions}>{JSON.stringify(this.state.vents)}</Text>
+        <Text style={styles.instructions}>Recent Vents</Text>
+        <Vents vents={this.state.vents}></Vents>
         <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
+          Press Cmd+R to reload,{'\n'}
+          Cmd+D or shake for dev menu
         </Text>
       </View>
     );
@@ -118,7 +107,6 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     height: 100,
-    width: 200,
     margin: 10,
     backgroundColor: 'white',
     padding: 6,
@@ -131,6 +119,7 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 4,
+    margin: 10,
     padding: 6,
     width: 128
   },

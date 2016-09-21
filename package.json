@@ -6,7 +6,9 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
+    "babel-preset-es2015": "^6.14.0",
     "react": "15.2.1",
-    "react-native": "0.31.0"
+    "react-native": "0.31.0",
+    "react-native-timeago": "^0.3.0"
   }
 }
